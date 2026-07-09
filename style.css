@@ -1,229 +1,456 @@
-/* ========================= */
-/* Lexin V2O */
-/* ========================= */
+/* =====================================
+   Lexin V2O
+   Graffiti Street Edition
+   ===================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&display=swap');
+
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+    font-family:"Segoe UI", sans-serif;
 }
 
+
 body{
-    background:#0f1117;
+
+    background:
+    radial-gradient(circle at top,#242836,#08090d);
+
     color:white;
+
     min-height:100vh;
+
     overflow:hidden;
+
 }
+
+
 
 /* Hidden */
 
 .hidden{
+
     display:none !important;
+
 }
+
+
 
 /* Screens */
 
 .screen{
+
     width:100%;
+
     min-height:100vh;
 
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 
     padding:25px;
+
 }
 
-/* Login Card */
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo{
+
+    font-family:"Permanent Marker", cursive;
+
+    font-size:55px;
+
+    letter-spacing:3px;
+
+    transform:rotate(-3deg);
+
+    text-shadow:
+
+    3px 3px 0 #000,
+
+    6px 6px 20px rgba(255,255,255,.25);
+
+}
+
+
+
+/* Login */
 
 .loginCard{
 
+
     width:100%;
-    max-width:420px;
 
-    padding:35px;
+    max-width:430px;
 
-    border-radius:30px;
+    padding:40px;
 
-    background:rgba(255,255,255,.08);
+
+    border-radius:35px;
+
+
+    background:
+
+    rgba(255,255,255,.08);
+
 
     backdrop-filter:blur(25px);
 
-    border:1px solid rgba(255,255,255,.08);
+
+    border:
+
+    1px solid rgba(255,255,255,.15);
+
 
     box-shadow:
-    0 25px 60px rgba(0,0,0,.45);
+
+    0 30px 80px rgba(0,0,0,.6);
+
 
     text-align:center;
 
+
     animation:fadeUp .8s;
+
+
 }
+
+
 
 .loginCard h1{
 
-    font-size:42px;
+    font-family:"Permanent Marker",cursive;
 
-    font-weight:700;
+    font-size:50px;
 
-    margin-bottom:10px;
+    transform:rotate(-3deg);
+
+    margin-bottom:15px;
 
 }
+
+
 
 .subtitle{
 
-    color:#b4b4b4;
+    color:#aaa;
 
     margin-bottom:30px;
 
-    font-size:15px;
-
 }
+
+
+
+
 
 input{
 
+
     width:100%;
 
-    padding:15px;
+    padding:16px;
 
     border:none;
 
     outline:none;
 
-    border-radius:15px;
 
-    background:#1b1f29;
+    border-radius:18px;
+
+
+    background:#151821;
+
 
     color:white;
 
+
     font-size:16px;
+
 
     margin-bottom:18px;
 
 }
 
+
+
 input::placeholder{
 
-    color:#7e8594;
+    color:#777;
 
 }
 
+
+
+
+
 button{
+
 
     cursor:pointer;
 
     border:none;
 
-    border-radius:15px;
-
     transition:.25s;
 
 }
 
+
+
+
+
 #loginBtn{
+
 
     width:100%;
 
-    padding:15px;
+    padding:16px;
 
-    background:#3b82f6;
 
-    color:white;
+    border-radius:18px;
+
+
+    background:white;
+
+
+    color:black;
+
+
+    font-weight:800;
+
 
     font-size:17px;
 
-    font-weight:600;
-
 }
+
+
 
 #loginBtn:hover{
 
-    transform:translateY(-2px);
 
-    background:#4f8ef8;
+    transform:translateY(-3px) rotate(-1deg);
+
 
 }
+
+
+
+
 
 #errorMessage{
 
+
     color:#ff6b6b;
 
-    margin-top:18px;
 
-    min-height:20px;
+    margin-top:15px;
+
 
 }
 
-/* HOME */
+
+
+/* =========================
+   HOME
+========================= */
+
 
 #homeScreen{
+
 
     display:flex;
 
     flex-direction:column;
 
-    padding:25px;
 
 }
+
+
 
 .topBar{
 
+
     width:100%;
 
     max-width:900px;
 
-    margin:auto;
 
 }
+
+
 
 .topBar h2{
 
-    margin-bottom:18px;
 
-    font-size:34px;
+    font-family:"Permanent Marker",cursive;
+
+
+    font-size:45px;
+
+
+    transform:rotate(-2deg);
+
+
+    margin-bottom:20px;
 
 }
 
-#searchInput{
 
-    margin-bottom:25px;
-
-}
 
 #linkContainer{
+
 
     width:100%;
 
     max-width:900px;
 
-    margin:auto;
+}
+
+
+
+/* Website Cards */
+
+
+.websiteCard{
+
+
+    background:
+
+    rgba(255,255,255,.08);
+
+
+    backdrop-filter:blur(20px);
+
+
+    border-radius:25px;
+
+
+    padding:25px;
+
+
+    margin-bottom:18px;
+
+
+    border:
+
+    1px solid rgba(255,255,255,.12);
+
+
+    animation:fadeUp .4s;
+
 
 }
 
-/* Floating Buttons */
+
+
+.websiteCard h3{
+
+
+    font-size:24px;
+
+
+    font-family:"Permanent Marker",cursive;
+
+
+}
+
+
+
+.websiteCard p{
+
+
+    color:#aaa;
+
+
+    margin:10px 0;
+
+
+}
+
+
+
+.cardButtons{
+
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+
+
+.cardButtons button{
+
+
+    flex:1;
+
+    padding:12px;
+
+    border-radius:14px;
+
+    background:white;
+
+    color:black;
+
+    font-weight:bold;
+
+
+}
+
+
+
+/* =========================
+ Floating Buttons
+========================= */
+
 
 #addButton,
 #settingsButton{
 
+
     position:fixed;
 
-    width:60px;
 
-    height:60px;
+    width:62px;
+
+    height:62px;
+
 
     border-radius:50%;
 
-    background:#3b82f6;
 
-    color:white;
+    background:white;
 
-    font-size:28px;
 
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
+    color:black;
+
+
+    font-size:30px;
+
+
+    font-weight:bold;
+
+
+    box-shadow:
+
+    0 15px 40px rgba(0,0,0,.5);
+
 
 }
 
+
+
 #addButton{
+
 
     right:25px;
 
@@ -231,7 +458,10 @@ button{
 
 }
 
+
+
 #settingsButton{
+
 
     left:25px;
 
@@ -239,13 +469,62 @@ button{
 
 }
 
-/* Popup */
+
+
+
+
+#addButton:hover,
+#settingsButton:hover{
+
+
+    transform:scale(1.1) rotate(5deg);
+
+}
+
+
+
+/* Footer text */
+
+.appFooter{
+
+
+    position:fixed;
+
+
+    bottom:35px;
+
+
+    left:50%;
+
+
+    transform:translateX(-50%);
+
+
+    font-size:11px;
+
+
+    color:#777;
+
+
+    letter-spacing:1px;
+
+
+}
+
+
+
+/* =========================
+ Popups
+========================= */
+
 
 .popup{
+
 
     position:fixed;
 
     inset:0;
+
 
     display:flex;
 
@@ -253,85 +532,129 @@ button{
 
     align-items:center;
 
-    background:rgba(0,0,0,.55);
+
+    background:rgba(0,0,0,.7);
 
 }
 
+
+
 .popupCard{
+
 
     width:90%;
 
     max-width:420px;
 
-    padding:30px;
 
-    border-radius:25px;
+    padding:35px;
 
-    background:#181c24;
+
+    border-radius:30px;
+
+
+    background:#12151d;
+
+
+    box-shadow:
+
+    0 30px 80px black;
+
 
 }
+
+
 
 .popupCard h2{
 
+
+    font-family:"Permanent Marker",cursive;
+
+
+    font-size:32px;
+
+
     margin-bottom:20px;
 
+
 }
+
+
 
 .popupButtons{
 
+
     display:flex;
 
-    gap:12px;
-
-    margin-top:20px;
+    gap:15px;
 
 }
 
+
+
 .popupButtons button{
+
 
     flex:1;
 
     padding:14px;
 
+    border-radius:15px;
+
+
 }
+
+
 
 #saveButton,
 #deleteConfirm{
 
-    background:#3b82f6;
 
-    color:white;
+    background:white;
+
+    color:black;
+
 
 }
+
+
 
 #cancelButton,
 #deleteCancel,
 #closeSettings{
 
-    background:#303644;
+
+    background:#292d38;
 
     color:white;
 
+
 }
+
+
 
 /* Animation */
 
+
 @keyframes fadeUp{
 
-    from{
 
-        opacity:0;
+from{
 
-        transform:translateY(40px);
+opacity:0;
 
-    }
+transform:translateY(40px);
 
-    to{
+}
 
-        opacity:1;
 
-        transform:translateY(0);
+to{
 
-    }
+opacity:1;
+
+transform:translateY(0);
+
+}
+
 
 }
