@@ -1,9 +1,11 @@
 // =====================================
 // Lexin V2O
-// Version 2.0
+// Graffiti Edition
 // =====================================
 
+
 const PASSWORD = "ezra091008*";
+
 
 // ----------------------
 // Elements
@@ -33,42 +35,74 @@ const settingsButton = document.getElementById("settingsButton");
 const settingsPopup = document.getElementById("settingsPopup");
 const closeSettings = document.getElementById("closeSettings");
 
+const deletePopup = document.getElementById("deletePopup");
+const deleteConfirm = document.getElementById("deleteConfirm");
+const deleteCancel = document.getElementById("deleteCancel");
+
+
+
 // ----------------------
-// App Data
+// Data
 // ----------------------
 
-let links = JSON.parse(localStorage.getItem("lexin_links")) || [];
+let links =
+JSON.parse(localStorage.getItem("lexin_links")) || [];
+
 
 let editingIndex = -1;
+
+let deletingIndex = -1;
+
+
+
 
 // ----------------------
 // Login
 // ----------------------
 
-function login() {
+function login(){
 
-    if (passwordInput.value === PASSWORD) {
+    if(passwordInput.value === PASSWORD){
 
-        errorMessage.textContent = "";
+
+        errorMessage.textContent="";
+
 
         loginScreen.classList.add("hidden");
 
-        homeScreen.classList.remove("hidden");
+
+        setTimeout(()=>{
+
+            homeScreen.classList.remove("hidden");
+
+        },300);
+
+
+
+        createFooter();
 
         renderLinks();
 
-    } else {
+
+
+    }else{
+
 
         errorMessage.textContent =
-        "Contact hndzraa on TikTok for the code.";
+        "Contact hndzraa on TikTok for access.";
+
 
     }
 
 }
 
-loginBtn.addEventListener("click", login);
 
-passwordInput.addEventListener("keydown", function(e){
+
+loginBtn.addEventListener("click",login);
+
+
+
+passwordInput.addEventListener("keydown",e=>{
 
     if(e.key==="Enter"){
 
@@ -78,41 +112,86 @@ passwordInput.addEventListener("keydown", function(e){
 
 });
 
+
+
+
 // ----------------------
-// Popup
+// Footer
 // ----------------------
 
-addButton.addEventListener("click", function(){
+function createFooter(){
+
+
+    if(document.querySelector(".appFooter")) return;
+
+
+    const footer=document.createElement("div");
+
+
+    footer.className="appFooter";
+
+
+    footer.textContent=
+    "© 2026 Lexin V2O • Designed by hndzraa";
+
+
+    document.body.appendChild(footer);
+
+
+}
+
+
+
+
+// ----------------------
+// Add Popup
+// ----------------------
+
+addButton.addEventListener("click",()=>{
+
 
     popupTitle.textContent="Add Website";
+
 
     siteName.value="";
 
     siteURL.value="";
 
+
     editingIndex=-1;
+
 
     popup.classList.remove("hidden");
 
+
 });
 
-cancelButton.addEventListener("click",function(){
+
+
+cancelButton.addEventListener("click",()=>{
 
     popup.classList.add("hidden");
 
 });
 
+
+
+
+
 // ----------------------
-// Save Link
+// Save
 // ----------------------
 
-saveButton.addEventListener("click",function(){
+saveButton.addEventListener("click",()=>{
+
 
     let name=siteName.value.trim();
 
     let url=siteURL.value.trim();
 
-    if(name===""||url===""){
+
+
+    if(!name || !url){
 
         alert("Please fill in every field.");
 
@@ -120,99 +199,142 @@ saveButton.addEventListener("click",function(){
 
     }
 
+
+
     if(!url.startsWith("http")){
 
         url="https://"+url;
 
     }
 
-    if(editingIndex===-1){
 
-        links.push({
 
-            name:name,
+    const website={
 
-            url:url
+        name:name,
 
-        });
+        url:url
 
-    }else{
+    };
 
-        links[editingIndex]={
 
-            name:name,
 
-            url:url
+    if(editingIndex === -1){
 
-        };
+        links.push(website);
 
     }
 
-    localStorage.setItem("lexin_links",JSON.stringify(links));
+    else{
+
+        links[editingIndex]=website;
+
+    }
+
+
+
+    localStorage.setItem(
+        "lexin_links",
+        JSON.stringify(links)
+    );
+
+
 
     popup.classList.add("hidden");
 
+
     renderLinks();
+
 
 });
 
+
+
+
 // ----------------------
-// Render
+// Render Websites
 // ----------------------
 
 function renderLinks(){
 
-    const container=document.getElementById("linkContainer");
 
-    container.innerHTML="";
+const container=
+document.getElementById("linkContainer");
 
-    let keyword=searchInput.value.toLowerCase();
 
-    links.forEach(function(link,index){
+container.innerHTML="";
 
-        if(!link.name.toLowerCase().includes(keyword)) return;
 
-        const card=document.createElement("div");
+let keyword=
+searchInput.value.toLowerCase();
 
-        card.className="websiteCard";
 
-        card.innerHTML=`
 
-        <h3>${link.name}</h3>
+links.forEach((link,index)=>{
 
-        <p>${link.url}</p>
 
-        <div class="cardButtons">
+if(!link.name.toLowerCase().includes(keyword))
+return;
 
-            <button onclick="window.open('${link.url}','_blank')">
 
-            Open
 
-            </button>
+const card=document.createElement("div");
 
-            <button onclick="editLink(${index})">
 
-            Edit
+card.className="websiteCard";
 
-            </button>
 
-            <button onclick="deleteLink(${index})">
 
-            Delete
+card.innerHTML=`
 
-            </button>
+<h3>${link.name}</h3>
 
-        </div>
+<p>${link.url}</p>
 
-        `;
 
-        container.appendChild(card);
+<div class="cardButtons">
 
-    });
+
+<button onclick="window.open('${link.url}','_blank')">
+Open
+</button>
+
+
+<button onclick="editLink(${index})">
+Edit
+</button>
+
+
+<button onclick="askDelete(${index})">
+Delete
+</button>
+
+
+</div>
+
+`;
+
+
+
+container.appendChild(card);
+
+
+
+});
+
 
 }
 
-searchInput.addEventListener("input",renderLinks);
+
+
+searchInput.addEventListener(
+"input",
+renderLinks
+);
+
+
+
+
 
 // ----------------------
 // Edit
@@ -220,54 +342,104 @@ searchInput.addEventListener("input",renderLinks);
 
 window.editLink=function(index){
 
-    editingIndex=index;
 
-    popupTitle.textContent="Edit Website";
+editingIndex=index;
 
-    siteName.value=links[index].name;
 
-    siteURL.value=links[index].url;
+popupTitle.textContent=
+"Edit Website";
 
-    popup.classList.remove("hidden");
 
-}
+siteName.value=
+links[index].name;
+
+
+siteURL.value=
+links[index].url;
+
+
+popup.classList.remove("hidden");
+
+
+};
+
+
+
+
 
 // ----------------------
-// Delete
+// Delete System
 // ----------------------
 
-window.deleteLink=function(index){
+window.askDelete=function(index){
 
-    if(confirm("Delete this website?")){
 
-        links.splice(index,1);
+deletingIndex=index;
 
-        localStorage.setItem("lexin_links",JSON.stringify(links));
 
-        renderLinks();
+deletePopup.classList.remove("hidden");
 
-    }
 
-}
+};
+
+
+
+deleteCancel.addEventListener("click",()=>{
+
+deletePopup.classList.add("hidden");
+
+});
+
+
+
+deleteConfirm.addEventListener("click",()=>{
+
+
+links.splice(deletingIndex,1);
+
+
+localStorage.setItem(
+"lexin_links",
+JSON.stringify(links)
+);
+
+
+
+deletePopup.classList.add("hidden");
+
+
+renderLinks();
+
+
+});
+
+
+
+
 
 // ----------------------
 // Settings
 // ----------------------
 
-settingsButton.addEventListener("click",function(){
+settingsButton.addEventListener("click",()=>{
 
-    settingsPopup.classList.remove("hidden");
+settingsPopup.classList.remove("hidden");
+
+});
+
+
+
+closeSettings.addEventListener("click",()=>{
+
+settingsPopup.classList.add("hidden");
 
 });
 
-closeSettings.addEventListener("click",function(){
 
-    settingsPopup.classList.add("hidden");
 
-});
 
 // ----------------------
-// Initial
+// Start
 // ----------------------
 
 renderLinks();
