@@ -1,1 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lexin V2O</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ========================= -->
+    <!-- LOGIN SCREEN -->
+    <!-- ========================= -->
+
+    <section id="loginScreen" class="screen">
+
+        <div class="loginCard">
+
+            <h1>Lexin V2O</h1>
+
+            <p class="subtitle">
+                Secure Access Required
+            </p>
+
+            <input
+                id="password"
+                type="password"
+                placeholder="Enter Passcode"
+                autocomplete="off">
+
+            <button id="loginBtn">
+                Continue
+            </button>
+
+            <p id="errorMessage"></p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ========================= -->
+    <!-- HOME SCREEN -->
+    <!-- ========================= -->
+
+    <section id="homeScreen" class="screen hidden">
+
+        <header class="topBar">
+
+            <h2>Lexin V2O</h2>
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search websites...">
+
+        </header>
+
+        <main id="linkContainer">
+
+            <!-- Website Cards Generated Here -->
+
+        </main>
+
+
+
+        <button id="addButton">
+            +
+        </button>
+
+        <button id="settingsButton">
+            ⚙
+        </button>
+
+    </section>
+
+
+
+    <!-- ========================= -->
+    <!-- ADD / EDIT POPUP -->
+    <!-- ========================= -->
+
+    <div id="popup" class="popup hidden">
+
+        <div class="popupCard">
+
+            <h2 id="popupTitle">
+                Add Website
+            </h2>
+
+            <input
+                id="siteName"
+                type="text"
+                placeholder="Website Name">
+
+            <input
+                id="siteURL"
+                type="text"
+                placeholder="https://example.com">
+
+            <div class="popupButtons">
+
+                <button id="cancelButton">
+                    Cancel
+                </button>
+
+                <button id="saveButton">
+                    Save
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================= -->
+    <!-- DELETE CONFIRMATION -->
+    <!-- ========================= -->
+
+    <div id="deletePopup" class="popup hidden">
+
+        <div class="popupCard">
+
+            <h2>Delete Website?</h2>
+
+            <p>
+                This action cannot be undone.
+            </p>
+
+            <div class="popupButtons">
+
+                <button id="deleteCancel">
+                    Cancel
+                </button>
+
+                <button id="deleteConfirm">
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================= -->
+    <!-- SETTINGS -->
+    <!-- ========================= -->
+
+    <div id="settingsPopup" class="popup hidden">
+
+        <div class="popupCard">
+
+            <h2>Settings</h2>
+
+            <button id="changeWallpaper">
+                🖼 Change Wallpaper
+            </button>
+
+            <button id="backgroundColour">
+                🎨 Background Colour
+            </button>
+
+            <button id="backgroundGradient">
+                🌈 Background Gradient
+            </button>
+
+            <button id="exportLinks">
+                📤 Export Links
+            </button>
+
+            <button id="importLinks">
+                📥 Import Links
+            </button>
+
+            <button id="closeSettings">
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
