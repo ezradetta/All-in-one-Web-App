@@ -435,6 +435,253 @@ settingsPopup.classList.add("hidden");
 
 });
 
+// ----------------------
+// Advanced Settings
+// ----------------------
+
+const changeWallpaper =
+document.getElementById("changeWallpaper");
+
+const wallpaperInput =
+document.getElementById("wallpaperInput");
+
+const backgroundColour =
+document.getElementById("backgroundColour");
+
+const backgroundGradient =
+document.getElementById("backgroundGradient");
+
+const exportLinks =
+document.getElementById("exportLinks");
+
+const importLinks =
+document.getElementById("importLinks");
+
+
+
+// Wallpaper
+
+changeWallpaper.addEventListener("click",()=>{
+
+    wallpaperInput.click();
+
+});
+
+
+wallpaperInput.addEventListener("change",function(){
+
+    const file=this.files[0];
+
+    if(!file) return;
+
+
+    const reader=new FileReader();
+
+
+    reader.onload=function(e){
+
+        document.body.style.backgroundImage =
+        `url(${e.target.result})`;
+
+        document.body.style.backgroundSize =
+        "cover";
+
+        localStorage.setItem(
+        "lexin_wallpaper",
+        e.target.result
+        );
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+
+});
+
+
+
+// Background Colour
+
+backgroundColour.addEventListener("click",()=>{
+
+
+    let colour =
+    prompt("Enter colour name or HEX:");
+
+    if(colour){
+
+        document.body.style.background =
+        colour;
+
+
+        localStorage.setItem(
+        "lexin_colour",
+        colour
+        );
+
+    }
+
+});
+
+
+
+
+// Gradient
+
+backgroundGradient.addEventListener("click",()=>{
+
+
+    document.body.style.background =
+    "linear-gradient(135deg,#111827,#000000)";
+
+
+    localStorage.setItem(
+    "lexin_gradient",
+    "true"
+    );
+
+
+});
+
+
+
+
+
+// Export
+
+exportLinks.addEventListener("click",()=>{
+
+
+    const data =
+    JSON.stringify(links,null,2);
+
+
+    const blob =
+    new Blob([data],
+    {type:"application/json"});
+
+
+    const url =
+    URL.createObjectURL(blob);
+
+
+    const a=document.createElement("a");
+
+
+    a.href=url;
+
+
+    a.download="lexin_links_backup.json";
+
+
+    a.click();
+
+
+});
+
+
+
+
+
+
+// Import
+
+importLinks.addEventListener("click",()=>{
+
+
+    const input=document.createElement("input");
+
+
+    input.type="file";
+
+    input.accept=".json";
+
+
+
+    input.onchange=function(){
+
+
+        const file=this.files[0];
+
+
+        const reader=new FileReader();
+
+
+
+        reader.onload=function(e){
+
+
+            links =
+            JSON.parse(e.target.result);
+
+
+
+            localStorage.setItem(
+            "lexin_links",
+            JSON.stringify(links)
+            );
+
+
+
+            renderLinks();
+
+
+            alert("Links imported!");
+
+        };
+
+
+        reader.readAsText(file);
+
+
+    };
+
+
+    input.click();
+
+
+});
+
+
+
+
+
+// Load saved background
+
+window.addEventListener("load",()=>{
+
+
+const wallpaper =
+localStorage.getItem("lexin_wallpaper");
+
+
+const colour =
+localStorage.getItem("lexin_colour");
+
+
+
+if(wallpaper){
+
+
+document.body.style.backgroundImage =
+`url(${wallpaper})`;
+
+document.body.style.backgroundSize="cover";
+
+
+}
+
+
+
+if(colour){
+
+document.body.style.background=colour;
+
+}
+
+
+});
 
 
 
