@@ -690,3 +690,196 @@ document.body.style.background=colour;
 // ----------------------
 
 renderLinks();
+
+// ======================
+// SETTINGS FEATURES
+// ======================
+
+
+const wallpaperInput =
+document.getElementById("wallpaperInput");
+
+
+changeWallpaper.onclick=()=>{
+
+    wallpaperInput.click();
+
+};
+
+
+
+wallpaperInput.onchange=function(){
+
+
+const file=this.files[0];
+
+
+if(!file)return;
+
+
+const reader=new FileReader();
+
+
+reader.onload=function(e){
+
+
+document.body.style.backgroundImage =
+`url(${e.target.result})`;
+
+
+document.body.style.backgroundSize="cover";
+
+
+localStorage.setItem(
+"lexin_wallpaper",
+e.target.result
+);
+
+
+};
+
+
+reader.readAsDataURL(file);
+
+
+};
+
+
+
+
+
+backgroundColour.onclick=()=>{
+
+
+let c=prompt(
+"Enter colour or HEX:"
+);
+
+
+if(c){
+
+
+document.body.style.background=c;
+
+
+localStorage.setItem(
+"lexin_colour",
+c
+);
+
+
+}
+
+
+};
+
+
+
+
+
+backgroundGradient.onclick=()=>{
+
+
+document.body.style.background=
+"linear-gradient(135deg,#111,#444)";
+
+
+};
+
+
+
+
+
+
+exportLinks.onclick=()=>{
+
+
+let file=
+new Blob(
+[
+JSON.stringify(links,null,2)
+],
+{
+type:"application/json"
+}
+);
+
+
+
+let url=
+URL.createObjectURL(file);
+
+
+let a=document.createElement("a");
+
+
+a.href=url;
+
+
+a.download="Lexin_Backup.json";
+
+
+a.click();
+
+
+};
+
+
+
+
+
+
+importLinks.onclick=()=>{
+
+
+let input=
+document.createElement("input");
+
+
+input.type="file";
+
+
+input.accept=".json";
+
+
+
+input.onchange=function(){
+
+
+let reader=
+new FileReader();
+
+
+reader.onload=function(){
+
+
+links=
+JSON.parse(reader.result);
+
+
+localStorage.setItem(
+"lexin_links",
+JSON.stringify(links)
+);
+
+
+
+renderLinks();
+
+
+alert("Import successful");
+
+
+};
+
+
+reader.readAsText(this.files[0]);
+
+
+};
+
+
+input.click();
+
+
+};
