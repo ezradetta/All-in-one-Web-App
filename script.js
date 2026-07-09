@@ -3,13 +3,12 @@
 // Graffiti Edition
 // =====================================
 
-
 const PASSWORD = "ezra091008*";
 
 
-// ----------------------
+// ======================
 // Elements
-// ----------------------
+// ======================
 
 const loginScreen = document.getElementById("loginScreen");
 const homeScreen = document.getElementById("homeScreen");
@@ -19,6 +18,7 @@ const loginBtn = document.getElementById("loginBtn");
 const errorMessage = document.getElementById("errorMessage");
 
 const searchInput = document.getElementById("searchInput");
+const linkContainer = document.getElementById("linkContainer");
 
 const popup = document.getElementById("popup");
 const popupTitle = document.getElementById("popupTitle");
@@ -39,72 +39,62 @@ const deletePopup = document.getElementById("deletePopup");
 const deleteConfirm = document.getElementById("deleteConfirm");
 const deleteCancel = document.getElementById("deleteCancel");
 
+const changeWallpaper = document.getElementById("changeWallpaper");
+const wallpaperInput = document.getElementById("wallpaperInput");
+
+const backgroundColour = document.getElementById("backgroundColour");
+const backgroundGradient = document.getElementById("backgroundGradient");
+
+const exportLinks = document.getElementById("exportLinks");
+const importLinks = document.getElementById("importLinks");
 
 
-// ----------------------
+// ======================
 // Data
-// ----------------------
+// ======================
 
 let links =
 JSON.parse(localStorage.getItem("lexin_links")) || [];
 
-
 let editingIndex = -1;
-
 let deletingIndex = -1;
 
 
-
-
-// ----------------------
+// ======================
 // Login
-// ----------------------
+// ======================
 
 function login(){
 
     if(passwordInput.value === PASSWORD){
 
-
-        errorMessage.textContent="";
-
+        errorMessage.textContent = "";
 
         loginScreen.classList.add("hidden");
 
-
-        setTimeout(()=>{
-
-            homeScreen.classList.remove("hidden");
-
-        },300);
-
-
+        homeScreen.classList.remove("hidden");
 
         createFooter();
 
         renderLinks();
 
-
-
-    }else{
-
+    }
+    else{
 
         errorMessage.textContent =
         "Contact hndzraa on TikTok for access.";
-
 
     }
 
 }
 
 
-
-loginBtn.addEventListener("click",login);
-
+loginBtn.addEventListener("click", login);
 
 
-passwordInput.addEventListener("keydown",e=>{
+passwordInput.addEventListener("keydown", function(e){
 
-    if(e.key==="Enter"){
+    if(e.key === "Enter"){
 
         login();
 
@@ -113,59 +103,42 @@ passwordInput.addEventListener("keydown",e=>{
 });
 
 
-
-
-// ----------------------
+// ======================
 // Footer
-// ----------------------
+// ======================
 
 function createFooter(){
 
-
     if(document.querySelector(".appFooter")) return;
-
 
     const footer=document.createElement("div");
 
-
     footer.className="appFooter";
-
 
     footer.textContent=
     "© 2026 Lexin V2O • Designed by hndzraa";
 
-
     document.body.appendChild(footer);
-
 
 }
 
 
-
-
-// ----------------------
-// Add Popup
-// ----------------------
+// ======================
+// Add Website
+// ======================
 
 addButton.addEventListener("click",()=>{
 
-
     popupTitle.textContent="Add Website";
 
-
     siteName.value="";
-
     siteURL.value="";
-
 
     editingIndex=-1;
 
-
     popup.classList.remove("hidden");
 
-
 });
-
 
 
 cancelButton.addEventListener("click",()=>{
@@ -175,30 +148,22 @@ cancelButton.addEventListener("click",()=>{
 });
 
 
-
-
-
-// ----------------------
-// Save
-// ----------------------
+// ======================
+// Save Website
+// ======================
 
 saveButton.addEventListener("click",()=>{
 
-
-    let name=siteName.value.trim();
-
-    let url=siteURL.value.trim();
-
+    let name = siteName.value.trim();
+    let url = siteURL.value.trim();
 
 
     if(!name || !url){
 
         alert("Please fill in every field.");
-
         return;
 
     }
-
 
 
     if(!url.startsWith("http")){
@@ -208,15 +173,10 @@ saveButton.addEventListener("click",()=>{
     }
 
 
-
     const website={
-
         name:name,
-
         url:url
-
     };
-
 
 
     if(editingIndex === -1){
@@ -224,13 +184,11 @@ saveButton.addEventListener("click",()=>{
         links.push(website);
 
     }
-
     else{
 
         links[editingIndex]=website;
 
     }
-
 
 
     localStorage.setItem(
@@ -239,92 +197,72 @@ saveButton.addEventListener("click",()=>{
     );
 
 
-
     popup.classList.add("hidden");
-
 
     renderLinks();
 
-
 });
 
 
-
-
-// ----------------------
-// Render Websites
-// ----------------------
+// ======================
+// Render
+// ======================
 
 function renderLinks(){
 
+    linkContainer.innerHTML="";
 
-const container=
-document.getElementById("linkContainer");
-
-
-container.innerHTML="";
+    let keyword =
+    searchInput.value.toLowerCase();
 
 
-let keyword=
-searchInput.value.toLowerCase();
+    links.forEach((link,index)=>{
 
 
-
-links.forEach((link,index)=>{
-
-
-if(!link.name.toLowerCase().includes(keyword))
-return;
+        if(!link.name.toLowerCase().includes(keyword))
+        return;
 
 
+        const card=document.createElement("div");
 
-const card=document.createElement("div");
-
-
-card.className="websiteCard";
+        card.className="websiteCard";
 
 
+        card.innerHTML=`
 
-card.innerHTML=`
+        <h3>${link.name}</h3>
 
-<h3>${link.name}</h3>
-
-<p>${link.url}</p>
-
-
-<div class="cardButtons">
+        <p>${link.url}</p>
 
 
-<button onclick="window.open('${link.url}','_blank')">
-Open
-</button>
+        <div class="cardButtons">
+
+        <button onclick="window.open('${link.url}','_blank')">
+        Open
+        </button>
 
 
-<button onclick="editLink(${index})">
-Edit
-</button>
+        <button onclick="editLink(${index})">
+        Edit
+        </button>
 
 
-<button onclick="askDelete(${index})">
-Delete
-</button>
+        <button onclick="askDelete(${index})">
+        Delete
+        </button>
 
 
-</div>
+        </div>
 
-`;
-
-
-
-container.appendChild(card);
+        `;
 
 
+        linkContainer.appendChild(card);
 
-});
 
+    });
 
 }
-
 
 
 searchInput.addEventListener(
@@ -333,130 +271,79 @@ renderLinks
 );
 
 
-
-
-
-// ----------------------
+// ======================
 // Edit
-// ----------------------
+// ======================
 
 window.editLink=function(index){
 
+    editingIndex=index;
 
-editingIndex=index;
+    popupTitle.textContent="Edit Website";
 
+    siteName.value=links[index].name;
 
-popupTitle.textContent=
-"Edit Website";
+    siteURL.value=links[index].url;
 
-
-siteName.value=
-links[index].name;
-
-
-siteURL.value=
-links[index].url;
-
-
-popup.classList.remove("hidden");
-
+    popup.classList.remove("hidden");
 
 };
 
 
-
-
-
-// ----------------------
-// Delete System
-// ----------------------
+// ======================
+// Delete
+// ======================
 
 window.askDelete=function(index){
 
+    deletingIndex=index;
 
-deletingIndex=index;
-
-
-deletePopup.classList.remove("hidden");
-
+    deletePopup.classList.remove("hidden");
 
 };
-
 
 
 deleteCancel.addEventListener("click",()=>{
 
-deletePopup.classList.add("hidden");
+    deletePopup.classList.add("hidden");
 
 });
-
 
 
 deleteConfirm.addEventListener("click",()=>{
 
-
-links.splice(deletingIndex,1);
-
-
-localStorage.setItem(
-"lexin_links",
-JSON.stringify(links)
-);
+    links.splice(deletingIndex,1);
 
 
+    localStorage.setItem(
+        "lexin_links",
+        JSON.stringify(links)
+    );
 
-deletePopup.classList.add("hidden");
 
+    deletePopup.classList.add("hidden");
 
-renderLinks();
-
+    renderLinks();
 
 });
 
 
-
-
-
-// ----------------------
+// ======================
 // Settings
-// ----------------------
+// ======================
 
 settingsButton.addEventListener("click",()=>{
 
-settingsPopup.classList.remove("hidden");
+    settingsPopup.classList.remove("hidden");
 
 });
-
 
 
 closeSettings.addEventListener("click",()=>{
 
-settingsPopup.classList.add("hidden");
+    settingsPopup.classList.add("hidden");
 
 });
-
-// ----------------------
-// Advanced Settings
-// ----------------------
-
-const changeWallpaper =
-document.getElementById("changeWallpaper");
-
-const wallpaperInput =
-document.getElementById("wallpaperInput");
-
-const backgroundColour =
-document.getElementById("backgroundColour");
-
-const backgroundGradient =
-document.getElementById("backgroundGradient");
-
-const exportLinks =
-document.getElementById("exportLinks");
-
-const importLinks =
-document.getElementById("importLinks");
-
 
 
 // Wallpaper
@@ -472,7 +359,7 @@ wallpaperInput.addEventListener("change",function(){
 
     const file=this.files[0];
 
-    if(!file) return;
+    if(!file)return;
 
 
     const reader=new FileReader();
@@ -483,8 +370,8 @@ wallpaperInput.addEventListener("change",function(){
         document.body.style.backgroundImage =
         `url(${e.target.result})`;
 
-        document.body.style.backgroundSize =
-        "cover";
+        document.body.style.backgroundSize="cover";
+
 
         localStorage.setItem(
         "lexin_wallpaper",
@@ -496,24 +383,21 @@ wallpaperInput.addEventListener("change",function(){
 
     reader.readAsDataURL(file);
 
-
 });
 
 
-
-// Background Colour
+// Colour
 
 backgroundColour.addEventListener("click",()=>{
 
+    let colour=prompt(
+    "Enter colour or HEX:"
+    );
 
-    let colour =
-    prompt("Enter colour name or HEX:");
 
     if(colour){
 
-        document.body.style.background =
-        colour;
-
+        document.body.style.background=colour;
 
         localStorage.setItem(
         "lexin_colour",
@@ -525,96 +409,58 @@ backgroundColour.addEventListener("click",()=>{
 });
 
 
-
-
 // Gradient
 
 backgroundGradient.addEventListener("click",()=>{
 
-
-    document.body.style.background =
+    document.body.style.background=
     "linear-gradient(135deg,#111827,#000000)";
 
-
-    localStorage.setItem(
-    "lexin_gradient",
-    "true"
-    );
-
-
 });
-
-
-
 
 
 // Export
 
 exportLinks.addEventListener("click",()=>{
 
-
-    const data =
-    JSON.stringify(links,null,2);
-
-
-    const blob =
-    new Blob([data],
-    {type:"application/json"});
+    const blob=new Blob(
+    [JSON.stringify(links,null,2)],
+    {type:"application/json"}
+    );
 
 
-    const url =
-    URL.createObjectURL(blob);
-
+    const url=URL.createObjectURL(blob);
 
     const a=document.createElement("a");
 
-
     a.href=url;
 
-
-    a.download="lexin_links_backup.json";
-
+    a.download="Lexin_Backup.json";
 
     a.click();
 
-
 });
-
-
-
-
 
 
 // Import
 
 importLinks.addEventListener("click",()=>{
 
-
     const input=document.createElement("input");
-
 
     input.type="file";
 
     input.accept=".json";
 
 
-
     input.onchange=function(){
-
-
-        const file=this.files[0];
-
 
         const reader=new FileReader();
 
 
+        reader.onload=function(){
 
-        reader.onload=function(e){
-
-
-            links =
-            JSON.parse(e.target.result);
-
+            links=JSON.parse(reader.result);
 
 
             localStorage.setItem(
@@ -623,263 +469,56 @@ importLinks.addEventListener("click",()=>{
             );
 
 
-
             renderLinks();
-
-
-            alert("Links imported!");
 
         };
 
 
-        reader.readAsText(file);
-
+        reader.readAsText(this.files[0]);
 
     };
 
 
     input.click();
 
-
 });
 
 
-
-
-
-// Load saved background
+// ======================
+// Load Saved Settings
+// ======================
 
 window.addEventListener("load",()=>{
 
 
-const wallpaper =
-localStorage.getItem("lexin_wallpaper");
+    const wallpaper =
+    localStorage.getItem("lexin_wallpaper");
 
 
-const colour =
-localStorage.getItem("lexin_colour");
+    const colour =
+    localStorage.getItem("lexin_colour");
 
 
+    if(wallpaper){
 
-if(wallpaper){
+        document.body.style.backgroundImage =
+        `url(${wallpaper})`;
 
+        document.body.style.backgroundSize="cover";
 
-document.body.style.backgroundImage =
-`url(${wallpaper})`;
-
-document.body.style.backgroundSize="cover";
-
-
-}
+    }
 
 
+    if(colour){
 
-if(colour){
+        document.body.style.background=colour;
 
-document.body.style.background=colour;
-
-}
+    }
 
 
 });
 
 
-
-// ----------------------
-// Start
-// ----------------------
+// Initial render
 
 renderLinks();
-
-// ======================
-// SETTINGS FEATURES
-// ======================
-
-
-const wallpaperInput =
-document.getElementById("wallpaperInput");
-
-
-changeWallpaper.onclick=()=>{
-
-    wallpaperInput.click();
-
-};
-
-
-
-wallpaperInput.onchange=function(){
-
-
-const file=this.files[0];
-
-
-if(!file)return;
-
-
-const reader=new FileReader();
-
-
-reader.onload=function(e){
-
-
-document.body.style.backgroundImage =
-`url(${e.target.result})`;
-
-
-document.body.style.backgroundSize="cover";
-
-
-localStorage.setItem(
-"lexin_wallpaper",
-e.target.result
-);
-
-
-};
-
-
-reader.readAsDataURL(file);
-
-
-};
-
-
-
-
-
-backgroundColour.onclick=()=>{
-
-
-let c=prompt(
-"Enter colour or HEX:"
-);
-
-
-if(c){
-
-
-document.body.style.background=c;
-
-
-localStorage.setItem(
-"lexin_colour",
-c
-);
-
-
-}
-
-
-};
-
-
-
-
-
-backgroundGradient.onclick=()=>{
-
-
-document.body.style.background=
-"linear-gradient(135deg,#111,#444)";
-
-
-};
-
-
-
-
-
-
-exportLinks.onclick=()=>{
-
-
-let file=
-new Blob(
-[
-JSON.stringify(links,null,2)
-],
-{
-type:"application/json"
-}
-);
-
-
-
-let url=
-URL.createObjectURL(file);
-
-
-let a=document.createElement("a");
-
-
-a.href=url;
-
-
-a.download="Lexin_Backup.json";
-
-
-a.click();
-
-
-};
-
-
-
-
-
-
-importLinks.onclick=()=>{
-
-
-let input=
-document.createElement("input");
-
-
-input.type="file";
-
-
-input.accept=".json";
-
-
-
-input.onchange=function(){
-
-
-let reader=
-new FileReader();
-
-
-reader.onload=function(){
-
-
-links=
-JSON.parse(reader.result);
-
-
-localStorage.setItem(
-"lexin_links",
-JSON.stringify(links)
-);
-
-
-
-renderLinks();
-
-
-alert("Import successful");
-
-
-};
-
-
-reader.readAsText(this.files[0]);
-
-
-};
-
-
-input.click();
-
-
-};
