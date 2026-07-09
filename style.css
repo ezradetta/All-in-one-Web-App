@@ -1,1 +1,337 @@
+/* ========================= */
+/* Lexin V2O */
+/* ========================= */
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+}
+
+body{
+    background:#0f1117;
+    color:white;
+    min-height:100vh;
+    overflow:hidden;
+}
+
+/* Hidden */
+
+.hidden{
+    display:none !important;
+}
+
+/* Screens */
+
+.screen{
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:25px;
+}
+
+/* Login Card */
+
+.loginCard{
+
+    width:100%;
+    max-width:420px;
+
+    padding:35px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,.45);
+
+    text-align:center;
+
+    animation:fadeUp .8s;
+}
+
+.loginCard h1{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+.subtitle{
+
+    color:#b4b4b4;
+
+    margin-bottom:30px;
+
+    font-size:15px;
+
+}
+
+input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:15px;
+
+    background:#1b1f29;
+
+    color:white;
+
+    font-size:16px;
+
+    margin-bottom:18px;
+
+}
+
+input::placeholder{
+
+    color:#7e8594;
+
+}
+
+button{
+
+    cursor:pointer;
+
+    border:none;
+
+    border-radius:15px;
+
+    transition:.25s;
+
+}
+
+#loginBtn{
+
+    width:100%;
+
+    padding:15px;
+
+    background:#3b82f6;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+}
+
+#loginBtn:hover{
+
+    transform:translateY(-2px);
+
+    background:#4f8ef8;
+
+}
+
+#errorMessage{
+
+    color:#ff6b6b;
+
+    margin-top:18px;
+
+    min-height:20px;
+
+}
+
+/* HOME */
+
+#homeScreen{
+
+    display:flex;
+
+    flex-direction:column;
+
+    padding:25px;
+
+}
+
+.topBar{
+
+    width:100%;
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+.topBar h2{
+
+    margin-bottom:18px;
+
+    font-size:34px;
+
+}
+
+#searchInput{
+
+    margin-bottom:25px;
+
+}
+
+#linkContainer{
+
+    width:100%;
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+/* Floating Buttons */
+
+#addButton,
+#settingsButton{
+
+    position:fixed;
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    background:#3b82f6;
+
+    color:white;
+
+    font-size:28px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+
+}
+
+#addButton{
+
+    right:25px;
+
+    bottom:25px;
+
+}
+
+#settingsButton{
+
+    left:25px;
+
+    bottom:25px;
+
+}
+
+/* Popup */
+
+.popup{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.55);
+
+}
+
+.popupCard{
+
+    width:90%;
+
+    max-width:420px;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    background:#181c24;
+
+}
+
+.popupCard h2{
+
+    margin-bottom:20px;
+
+}
+
+.popupButtons{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+.popupButtons button{
+
+    flex:1;
+
+    padding:14px;
+
+}
+
+#saveButton,
+#deleteConfirm{
+
+    background:#3b82f6;
+
+    color:white;
+
+}
+
+#cancelButton,
+#deleteCancel,
+#closeSettings{
+
+    background:#303644;
+
+    color:white;
+
+}
+
+/* Animation */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(40px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
